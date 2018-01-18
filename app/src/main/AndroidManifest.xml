@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.triple_a.onlinebookstore">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".LoginAsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CustomerLoginActivity"
+            android:label="Customer Sign in" />
+        <activity
+            android:name=".PublisherLoginActivity"
+            android:label="Publisher Sign in" />
+        <activity
+            android:name=".CustomerRegisterActivity"
+            android:label="Customer Sign up" />
+        <activity
+            android:name=".PublisherRegisterActivity"
+            android:label="Publisher Sign up" />
+        <activity
+            android:name=".CustomerHomeActivity"
+            android:label="Customer Home" />
+        <activity
+            android:name=".PublisherHomeActivity"
+            android:label="Publisher Home" />
+        <activity
+            android:name=".BookInfoActivity"
+            android:label="Book Information" />
+        <activity
+            android:name=".PasswordRecoveryActivity"
+            android:label="Password Recovery" />
+        <activity
+            android:name=".SetPasswordAfterRecoveryActivity"
+            android:label="Reset Password" />
+        <activity
+            android:name=".PublisherBookListDisplayActivity"
+            android:label="Book List" />
+        <activity
+            android:name=".BookInfoNonEditableActivity"
+            android:label="Book Details" />
+        <activity
+            android:name=".BookSearchActivity"
+            android:label="Book Search" />
+        <activity
+            android:name=".CustomerSearchResultActivity"
+            android:label="Search Result" />
+        <activity
+            android:name=".CustomerBookDetailsActivity"
+            android:label="Book Details" />
+    </application>
+
+</manifest>
