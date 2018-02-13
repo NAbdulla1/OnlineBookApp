@@ -8,13 +8,13 @@ import java.net.Socket;
  */
 public class ServerInfo {
 
-    private static String SERVER_IP_ADDRESS = "192.168.0.171";
+    private static String SERVER_IP_ADDRESS = "192.168.191.1";
     //private String SERVER_IP_ADDRESS = "127.0.0.1";
     private static int SERVER_PORT = 4588;
 
-    public static Socket getClientSocket(){
+    public static Socket getClientSocket() {
         Socket client = null;
-        while(client == null) {
+        while (client == null) {
             try {
                 client = new Socket(SERVER_IP_ADDRESS, SERVER_PORT);
             } catch (IOException e) {

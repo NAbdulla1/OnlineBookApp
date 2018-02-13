@@ -46,19 +46,12 @@ public class CustomerSearchResultActivity extends AppCompatActivity {
 
         populateBookList();
 
-        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+        listView.setOnItemClickListener((parent, view, position, id) -> {
             startActivity(new Intent(CustomerSearchResultActivity.this,
                     CustomerBookDetailsActivity.class)
                     .putExtra(LoginAsActivity.BOOK_SEND, booksList.get(position))
                     .putExtra(LoginAsActivity.CURRENT_USER_INFO, userDetails));
-            return false;
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Toast.makeText(this, "Long press on list item for more options.", Toast.LENGTH_LONG).show();
     }
 
     private void populateBookList() {
@@ -78,17 +71,17 @@ public class CustomerSearchResultActivity extends AppCompatActivity {
                     oos.flush();
 
                     if (ois.readObject().equals(Boolean.FALSE)) {
-                        Log.e("load books list", (String) ois.readObject());
+                        Log.e("load books listView", (String) ois.readObject());
                         return Boolean.FALSE;
                     } else {
                         Object o = ois.readObject();
                         booksList = (ArrayList<Book>) o;
-                        Log.d("load book list", "books loaded successfully");
+                        Log.d("load book listView", "books loaded successfully");
                         return Boolean.TRUE;
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
-                    Log.e("load book list", e.getStackTrace().toString());
+                    Log.e("load book listView", e.getStackTrace().toString());
                 }
                 return Boolean.FALSE;
             }

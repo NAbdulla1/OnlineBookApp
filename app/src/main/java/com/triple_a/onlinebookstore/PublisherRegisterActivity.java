@@ -106,7 +106,7 @@ public class PublisherRegisterActivity extends AppCompatActivity {
             f = false;
             msg += "\nPassword length should be al least 5";
         }
-        if(!passAgain.getText().toString().equals(pass.getText().toString())){
+        if (!passAgain.getText().toString().equals(pass.getText().toString())) {
             f = false;
             msg += "\nPassword Mismatch";
         }
@@ -181,8 +181,7 @@ public class PublisherRegisterActivity extends AppCompatActivity {
                         PublisherRegisterActivity.this, android.R.layout.simple_spinner_item, ara);
                 adapter.setDropDownViewResource(R.layout.my_spinner_dropdown_item);
                 securityQuestion.setAdapter(adapter);
-            }
-            else{
+            } else {
                 Toast.makeText(PublisherRegisterActivity.this,
                         "Failed to load spinner. Recheck your internet connection and relaunch app",
                         Toast.LENGTH_LONG).show();

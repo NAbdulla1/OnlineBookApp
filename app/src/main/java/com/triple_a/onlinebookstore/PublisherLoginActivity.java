@@ -3,8 +3,8 @@ package com.triple_a.onlinebookstore;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
@@ -22,7 +22,6 @@ import java.net.Socket;
 import java.util.concurrent.ExecutionException;
 
 import components.Commands;
-import components.Publisher;
 import components.ServerInfo;
 import components.User;
 import components.UserType;
@@ -30,7 +29,6 @@ import components.UserType;
 import static com.triple_a.onlinebookstore.CustomerLoginActivity.FORGOT_PASS_CODE;
 import static com.triple_a.onlinebookstore.CustomerLoginActivity.REGISTER_CODE;
 import static com.triple_a.onlinebookstore.LoginAsActivity.USER_EMAIL_KEY;
-import static com.triple_a.onlinebookstore.LoginAsActivity.USER_PASSWORD_KEY;
 import static com.triple_a.onlinebookstore.PasswordRecoveryActivity.USER_TYPE_KEY;
 
 public class PublisherLoginActivity extends AppCompatActivity {
@@ -54,13 +52,13 @@ public class PublisherLoginActivity extends AppCompatActivity {
         signUp = findViewById(R.id.publisher_signup_btn);
         forgotPass = findViewById(R.id.publisher_forgot);
 
-        signIn.setOnClickListener(view-> signInUser());
+        signIn.setOnClickListener(view -> signInUser());
         signUp.setOnClickListener(v -> signUpUser());
-        forgotPass.setOnClickListener(v->recoverPassword());
+        forgotPass.setOnClickListener(v -> recoverPassword());
     }
 
-    private void signInUser(){
-        if(!isValidFields()) {
+    private void signInUser() {
+        if (!isValidFields()) {
             Toast.makeText(this, "Give proper value in fields.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -69,12 +67,12 @@ public class PublisherLoginActivity extends AppCompatActivity {
 
         AsyncTask<User, Void, Boolean> loginTask = new LoginTask().execute(user);
         try {
-            if(loginTask.get()){
+            if (loginTask.get()) {
                 Intent intent = new Intent(this, PublisherHomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra(USER_EMAIL_KEY, user.getUserEmail());
 
-                if(rememberMe.isChecked())
+                if (rememberMe.isChecked())
                     LogInInfoWriter.write(
                             new AlreadyLoggedIn(true, user.getUserEmail(), user.getPassword(), user.getUserType())
                     );
@@ -84,8 +82,7 @@ public class PublisherLoginActivity extends AppCompatActivity {
                     );
                 startActivity(intent);
                 finish();
-            }
-            else{
+            } else {
                 toastFailureMsg();
             }
         } catch (InterruptedException | ExecutionException e) {
@@ -94,22 +91,21 @@ public class PublisherLoginActivity extends AppCompatActivity {
         }
     }
 
-    private void signUpUser(){
+    private void signUpUser() {
         startActivityForResult(new Intent(this, PublisherRegisterActivity.class), REGISTER_CODE);
     }
 
-    private boolean isValidFields(){
+    private boolean isValidFields() {
 
         boolean f = true;
-        if(!Patterns.EMAIL_ADDRESS.matcher(tvEmail.getText()).matches())
+        if (!Patterns.EMAIL_ADDRESS.matcher(tvEmail.getText()).matches())
             f = false;
-        else if(tvPassword.getText().length() == 0)
+        else if (tvPassword.getText().length() == 0)
             f = false;
-        return  f;
+        return f;
     }
 
-    class LoginTask extends AsyncTask<User, Void, Boolean>
-    {
+    class LoginTask extends AsyncTask<User, Void, Boolean> {
         @Override
         protected Boolean doInBackground(User... users) {
             Socket client = ServerInfo.getClientSocket();
@@ -121,30 +117,29 @@ public class PublisherLoginActivity extends AppCompatActivity {
 
                 oos.writeObject(Commands.VALIDATE_LOGIN);
 
-                if(ois.readObject().equals(Boolean.FALSE)) {
-                    Log.d("sign in error", (String)ois.readObject());
+                if (ois.readObject().equals(Boolean.FALSE)) {
+                    Log.d("sign in error", (String) ois.readObject());
                     return Boolean.FALSE;
                 }
 
                 oos.writeObject(users[0]);
-                if(ois.readObject().equals(Boolean.FALSE)){
-                    Log.d("sign in error", (String)ois.readObject());
+                if (ois.readObject().equals(Boolean.FALSE)) {
+                    Log.d("sign in error", (String) ois.readObject());
                     return Boolean.FALSE;
                 }
                 return Boolean.TRUE;
-            }
-            catch (IOException | ClassNotFoundException e){
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return Boolean.FALSE;
             }
         }
     }
 
-    private void toastFailureMsg(){
+    private void toastFailureMsg() {
         Toast.makeText(this, "Can't sign in. Re-check email and password. Try again.", Toast.LENGTH_SHORT).show();
     }
 
-    private void recoverPassword(){
+    private void recoverPassword() {
         startActivityForResult(new Intent(this, PasswordRecoveryActivity.class)
                 .putExtra(USER_TYPE_KEY, UserType.PUBLISHER), FORGOT_PASS_CODE);
     }
@@ -152,25 +147,22 @@ public class PublisherLoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REGISTER_CODE){
-            if(resultCode == Activity.RESULT_OK){
+        if (requestCode == REGISTER_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
                 tvEmail.setText(data.getStringExtra(LoginAsActivity.USER_EMAIL_KEY));
                 tvPassword.setText(data.getStringExtra(LoginAsActivity.USER_PASSWORD_KEY));
                 Toast.makeText(this, String.format("Now press \"%s\" button.",
                         getResources().getString(R.string.action_sign_in_short)), Toast.LENGTH_SHORT).show();
-            }
-            else{
+            } else {
                 Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
             }
-        }
-        else if(requestCode == FORGOT_PASS_CODE){
-            if (resultCode == Activity.RESULT_OK){
+        } else if (requestCode == FORGOT_PASS_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
                 tvEmail.setText(data.getStringExtra(LoginAsActivity.USER_EMAIL_KEY));
                 tvPassword.setText(data.getStringExtra(LoginAsActivity.USER_PASSWORD_KEY));
                 Toast.makeText(this, String.format("Now press \"%s\" button.",
                         getResources().getString(R.string.action_sign_in_short)), Toast.LENGTH_SHORT).show();
-            }
-            else{
+            } else {
                 Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
             }
         }

@@ -11,6 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
+        <TextView
+            android:id="@+id/whoseHome"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:gravity="center_vertical|center_horizontal"
+            app:layout_constraintBottom_toTopOf="@id/customer_search_book_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/customer_search_book_btn"
             android:layout_width="0dp"
@@ -18,20 +28,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="Search Books"
-            app:layout_constraintBottom_toTopOf="@+id/customer_wish_list"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/customer_wish_list"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="Wish List"
             app:layout_constraintBottom_toTopOf="@id/customer_notifications"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.589"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -41,10 +39,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="Notifications"
+            app:layout_constraintBottom_toTopOf="@id/customer_logout_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="96dp"
-            app:layout_constraintBottom_toTopOf="@id/customer_logout_btn"/>
+            tools:layout_editor_absoluteY="96dp" />
 
         <Button
             android:id="@+id/customer_logout_btn"

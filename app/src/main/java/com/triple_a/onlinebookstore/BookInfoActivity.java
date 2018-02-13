@@ -127,7 +127,7 @@ public class BookInfoActivity extends AppCompatActivity {
                     } else {
                         Object o = ois.readObject();
                         list = (Pair<ArrayList<String>, ArrayList<String>>) o;
-                        Log.e("authorCategory", "author category list found.");
+                        Log.e("authorCategory", "author category listView found.");
                         return Boolean.TRUE;
                     }
                 } catch (IOException | ClassNotFoundException e) {

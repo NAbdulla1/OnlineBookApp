@@ -6,10 +6,8 @@
 package components;
 
 import java.io.Serializable;
-import java.lang.String;
 
 /**
- *
  * @author Md. Abdulla Al Mamun
  * @time 5:08:05 PM
  * @date Oct 11, 2017

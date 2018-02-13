@@ -15,11 +15,11 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="invisible"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/book_title"
@@ -42,8 +42,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:completionHint="Author Name"
-            android:hint="Author Name"
             android:completionThreshold="2"
+            android:hint="Author Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/book_title" />
@@ -55,8 +55,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:hint="Book Category"
             android:completionThreshold="2"
+            android:hint="Book Category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/author_name" />
@@ -117,7 +117,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:gravity="top|start"
-            android:hint="Give a short description of book"
+            android:hint="Give a short description of orderedBook"
             android:inputType="textMultiLine"
             android:minLines="3"
             app:layout_constraintEnd_toEndOf="parent"
@@ -143,9 +143,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
+            android:gravity="end"
             android:inputType="numberDecimal"
             android:minEms="5"
-            android:gravity="end"
             android:text="0.00"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/count_decrement_btn" />

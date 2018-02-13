@@ -2,7 +2,7 @@ package components;
 
 import java.io.Serializable;
 
-public class BookSub implements Serializable{
+public class BookSub implements Serializable {
     private String bookSubTitle;
     private String bookSubAuthor;
     private String bookSubPublisher;

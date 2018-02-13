@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,16 +42,10 @@ public class PublisherBookListDisplayActivity extends AppCompatActivity {
         userDetails = (Publisher) getIntent().getExtras().get(CURRENT_USER_INFO);
         errorTv = findViewById(R.id.errorview);
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(PublisherBookListDisplayActivity.this,
-                        BookInfoNonEditableActivity.class)
-                        .putExtra(LoginAsActivity.BOOK_ACTION_UPDATE, booksList.get(position))
-                        .putExtra(LoginAsActivity.CURRENT_USER_INFO, userDetails));
-                return false;
-            }
-        });
+        listView.setOnItemClickListener((parent, view, position, id) -> startActivity(new Intent(PublisherBookListDisplayActivity.this,
+                BookInfoNonEditableActivity.class)
+                .putExtra(LoginAsActivity.BOOK_ACTION_UPDATE, booksList.get(position))
+                .putExtra(LoginAsActivity.CURRENT_USER_INFO, userDetails)));
     }
 
     @Override
@@ -74,17 +67,17 @@ public class PublisherBookListDisplayActivity extends AppCompatActivity {
                     oos.flush();
 
                     if (ois.readObject().equals(Boolean.FALSE)) {
-                        Log.e("load books list", (String) ois.readObject());
+                        Log.e("load books listView", (String) ois.readObject());
                         return Boolean.FALSE;
                     } else {
                         Object o = ois.readObject();
                         booksList = (ArrayList<Book>) o;
-                        Log.d("load book list", "books loaded successfully");
+                        Log.d("load book listView", "books loaded successfully");
                         return Boolean.TRUE;
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
-                    Log.e("load book list", e.getStackTrace().toString());
+                    Log.e("load book listView", e.getStackTrace().toString());
                 }
                 return Boolean.FALSE;
             }
@@ -107,12 +100,6 @@ public class PublisherBookListDisplayActivity extends AppCompatActivity {
                 }
             }
         }.execute();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Toast.makeText(this, "Long press on list item for more options.", Toast.LENGTH_LONG).show();
     }
 
     class CustomAdapter extends ArrayAdapter<String> {

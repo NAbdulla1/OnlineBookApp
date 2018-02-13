@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.triple_a.onlinebookstore.utils.AlreadyLoggedIn;
@@ -51,7 +52,13 @@ public class PublisherHomeActivity extends AppCompatActivity {
 
         addBook.setOnClickListener(v -> addBookHandler(v));
         booksList.setOnClickListener(v -> showBookList());
+        notifications.setOnClickListener(v -> showNotifications());
         publisherLogout.setOnClickListener(view -> logout());
+    }
+
+    private void showNotifications() {
+        startActivity(new Intent(this, PublisherNotificationsActivity.class)
+                .putExtra(CURRENT_USER_INFO, currentUserDetails));
     }
 
     private void getUserDetails() {
@@ -91,10 +98,12 @@ public class PublisherHomeActivity extends AppCompatActivity {
                     Toast.makeText(PublisherHomeActivity.this,
                             "Can't retrieve important information. Recheck your internet connection and relaunch app.",
                             Toast.LENGTH_LONG).show();
-                } else
+                } else {
+                    ((TextView) findViewById(R.id.pubWhoseHome)).setText("Welcome\n" + currentUserDetails.getUserName());
                     Toast.makeText(PublisherHomeActivity.this,
                             "You are logged in as " + currentUserDetails.getUserName(),
                             Toast.LENGTH_SHORT).show();
+                }
             }
         }.execute();
     }

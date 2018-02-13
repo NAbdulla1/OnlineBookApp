@@ -2,10 +2,11 @@ package com.triple_a.onlinebookstore;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.triple_a.onlinebookstore.utils.AlreadyLoggedIn;
@@ -18,10 +19,11 @@ import java.net.Socket;
 
 import components.Commands;
 import components.Customer;
-import components.Publisher;
 import components.ServerInfo;
 import components.User;
 import components.UserType;
+
+import static com.triple_a.onlinebookstore.LoginAsActivity.CURRENT_USER_INFO;
 
 public class CustomerHomeActivity extends AppCompatActivity {
 
@@ -29,7 +31,6 @@ public class CustomerHomeActivity extends AppCompatActivity {
     private String email;
     private Customer userDetails;
     private Button searchButton;
-    private Button wishButton;
     private Button notificationButton;
 
     @Override
@@ -39,20 +40,26 @@ public class CustomerHomeActivity extends AppCompatActivity {
 
         email = getIntent().getStringExtra(LoginAsActivity.USER_EMAIL_KEY);
         searchButton = findViewById(R.id.customer_search_book_btn);
-        wishButton = findViewById(R.id.customer_wish_list);
         notificationButton = findViewById(R.id.customer_notifications);
         customerLogout = findViewById(R.id.customer_logout_btn);
 
         userDetails = null;
         getUserDetails();
 
-        searchButton.setOnClickListener(v->search());
+        searchButton.setOnClickListener(v -> search());
+        notificationButton.setOnClickListener(v -> showNotifications());
         customerLogout.setOnClickListener(v -> logout());
     }
 
-    private void search(){
+    private void search() {
         startActivity(new Intent(this, BookSearchActivity.class)
-        .putExtra(LoginAsActivity.CURRENT_USER_INFO, userDetails));
+                .putExtra(LoginAsActivity.CURRENT_USER_INFO, userDetails));
+    }
+
+
+    private void showNotifications() {
+        startActivity(new Intent(this, CustomerNotificationsActivity.class)
+                .putExtra(CURRENT_USER_INFO, userDetails));
     }
 
     private void getUserDetails() {
@@ -92,15 +99,17 @@ public class CustomerHomeActivity extends AppCompatActivity {
                     Toast.makeText(CustomerHomeActivity.this,
                             "Can't retrieve important information. Recheck your internet connection and relaunch app.",
                             Toast.LENGTH_LONG).show();
-                } else
+                } else {
+                    ((TextView) findViewById(R.id.whoseHome)).setText("Welcome\n" + userDetails.getUserName());
                     Toast.makeText(CustomerHomeActivity.this,
                             "You are logged in as " + userDetails.getUserName(),
                             Toast.LENGTH_SHORT).show();
+                }
             }
         }.execute();
     }
 
-    private void logout(){
+    private void logout() {
         LogInInfoWriter.write(new AlreadyLoggedIn(false, null, null, null));
         startActivity(new Intent(this, LoginAsActivity.class));
         finish();

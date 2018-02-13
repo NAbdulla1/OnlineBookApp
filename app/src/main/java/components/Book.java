@@ -18,7 +18,7 @@ public class Book implements Serializable {
     private double price;
     private String description;
 
-    public Book(){
+    public Book() {
         this(null, null, -1, null, 0, 0, null);
     }
 
@@ -100,8 +100,8 @@ public class Book implements Serializable {
     public String toString() {
         return String.format(
                 "Title: %s\n" +
-                "Author: %s\n" +
-                "Seller: %d\n" +
-                "Category: %s", bookTitle, authorName, publisherID, bookCategory);
+                        "Author: %s\n" +
+                        "Seller: %d\n" +
+                        "Category: %s", bookTitle, authorName, publisherID, bookCategory);
     }
 }

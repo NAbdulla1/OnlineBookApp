@@ -3,8 +3,8 @@ package com.triple_a.onlinebookstore;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,15 +38,15 @@ public class SetPasswordAfterRecoveryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_password_after_recovery);
 
         userEmail = getIntent().getStringExtra(USER_EMAIL_KEY);
-        userType = (UserType)getIntent().getExtras().get(USER_TYPE_KEY);
+        userType = (UserType) getIntent().getExtras().get(USER_TYPE_KEY);
 
         newPass = findViewById(R.id.new_password);
-        againNewPass  = findViewById(R.id.again_new_password);
+        againNewPass = findViewById(R.id.again_new_password);
         setPassBtn = findViewById(R.id.set_pass_btn);
 
-        setPassBtn.setOnClickListener(v->{
-            if(newPass.getText().length() >= 5 &&
-                    newPass.getText().toString().equals(againNewPass.getText().toString())){
+        setPassBtn.setOnClickListener(v -> {
+            if (newPass.getText().length() >= 5 &&
+                    newPass.getText().toString().equals(againNewPass.getText().toString())) {
                 new AsyncTask<Void, Void, Boolean>() {
                     @Override
                     protected Boolean doInBackground(Void... voids) {
@@ -76,18 +76,16 @@ public class SetPasswordAfterRecoveryActivity extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Boolean aBoolean) {
                         super.onPostExecute(aBoolean);
-                        if(aBoolean){
+                        if (aBoolean) {
                             Intent intent = new Intent();
                             intent.putExtra(USER_PASSWORD_KEY, newPass.getText().toString());
                             setResult(Activity.RESULT_OK, intent);
                             finish();
-                        }
-                        else
+                        } else
                             Toast.makeText(SetPasswordAfterRecoveryActivity.this, "Operation failed. try again", Toast.LENGTH_SHORT).show();
                     }
                 }.execute();
-            }
-            else
+            } else
                 Toast.makeText(this,
                         "Password length should be >= 5 or password mismatch",
                         Toast.LENGTH_SHORT).show();

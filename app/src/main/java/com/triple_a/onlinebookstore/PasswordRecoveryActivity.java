@@ -171,7 +171,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
                                 Toast.makeText(PasswordRecoveryActivity.this,
                                         "Email or security question or security question answer do not match. Try Again",
                                         Toast.LENGTH_LONG).show();
-                        } else if(userDetails != null && userType == UserType.PUBLISHER){
+                        } else if (userDetails != null && userType == UserType.PUBLISHER) {
                             Publisher publisher = (Publisher) userDetails;
                             if (publisher.getSecurityQuestionID() == securityQuestionsList.getFirst().get(questionPosition)) {
                                 if (publisher.getSecurityQuestionAnswer().equals(securityAnswer.getText().toString())) {
@@ -186,8 +186,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
                                 Toast.makeText(PasswordRecoveryActivity.this,
                                         "Email or security question or security question answer do not match. Try Again",
                                         Toast.LENGTH_LONG).show();
-                        }
-                        else
+                        } else
                             Toast.makeText(PasswordRecoveryActivity.this,
                                     "Email or security question or security question answer do not match. Try Again",
                                     Toast.LENGTH_LONG).show();

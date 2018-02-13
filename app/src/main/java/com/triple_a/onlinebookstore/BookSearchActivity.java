@@ -35,7 +35,7 @@ public class BookSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_search);
 
-        userDetails = (Customer)getIntent().getExtras().get(LoginAsActivity.CURRENT_USER_INFO);
+        userDetails = (Customer) getIntent().getExtras().get(LoginAsActivity.CURRENT_USER_INFO);
         searchBookTitle = findViewById(R.id.search_title);
         searchAuthor = findViewById(R.id.search_author);
         searchPublisher = findViewById(R.id.search_purlisher);
@@ -77,7 +77,7 @@ public class BookSearchActivity extends AppCompatActivity {
                     } else {
                         Object o = ois.readObject();
                         list = (Pair<ArrayList<String>, ArrayList<String>>) o;
-                        Log.e("authorCategory", "author category list found.");
+                        Log.e("authorCategory", "author category listView found.");
                         return Boolean.TRUE;
                     }
                 } catch (IOException | ClassNotFoundException e) {
@@ -124,7 +124,7 @@ public class BookSearchActivity extends AppCompatActivity {
                     } else {
                         Object o = ois.readObject();
                         list = (Pair<ArrayList<String>, ArrayList<String>>) o;
-                        Log.e("title publisher", "title publisher list found.");
+                        Log.e("title publisher", "title publisher listView found.");
                         return Boolean.TRUE;
                     }
                 } catch (IOException | ClassNotFoundException e) {

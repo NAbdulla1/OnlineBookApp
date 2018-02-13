@@ -1,17 +1,13 @@
 package com.triple_a.onlinebookstore;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -78,8 +74,8 @@ public class CustomerRegisterActivity extends AppCompatActivity {
             }
         });
 
-        signUp.setOnClickListener(v->{
-            if(!taskRunning && isValidFields()){
+        signUp.setOnClickListener(v -> {
+            if (!taskRunning && isValidFields()) {
                 customer = new Customer(name.getText().toString(),
                         email.getText().toString(),
                         pass.getText().toString(),
@@ -97,47 +93,48 @@ public class CustomerRegisterActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private boolean isValidFields(){
+    private boolean isValidFields() {
         boolean f = true;
         String msg = "";
-        if(name.getText().length() == 0){
+        if (name.getText().length() == 0) {
             f = false;
             msg += "\nEnter your name";
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
             f = false;
             msg += "\nEnter a valid email";
         }
-        if(pass.getText().length() < 5){
+        if (pass.getText().length() < 5) {
             f = false;
             msg += "\nPassword length should be at least 5";
         }
-        if(!passAgain.getText().toString().equals(pass.getText().toString())){
+        if (!passAgain.getText().toString().equals(pass.getText().toString())) {
             f = false;
             msg += "\nPassword Mismatch";
         }
-        if(address.getText().length() == 0){
+        if (address.getText().length() == 0) {
             f = false;
             msg += "\nEnter your address";
         }
-        if(questionPosition == -1){
+        if (questionPosition == -1) {
             f = false;
             msg += "\nChoose a security question";
         }
-        if(questionPosition != -1 && securityAnswer.getText().length() == 0){
+        if (questionPosition != -1 && securityAnswer.getText().length() == 0) {
             f = false;
             msg += "\nGive a answer of your chosen security question";
         }
-        if(!f){
+        if (!f) {
             Toast.makeText(this, msg.substring(1), Toast.LENGTH_LONG).show();
         }
         return f;
     }
-    private void loadSecurityQuestions(){
+
+    private void loadSecurityQuestions() {
         new loadQuestions().execute();
     }
 
-    private class loadQuestions extends AsyncTask<Void, Void, Boolean>{
+    private class loadQuestions extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... voids) {
             Socket client = ServerInfo.getClientSocket();
@@ -154,7 +151,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
                     return Boolean.FALSE;
                 } else {
                     Object o = ois.readObject();
-                    securityQuestionsList = (Pair<ArrayList<Integer>, ArrayList<String>>)o;
+                    securityQuestionsList = (Pair<ArrayList<Integer>, ArrayList<String>>) o;
                     /*
                     Pair oo = (Pair)o;
                     ArrayList ali = (ArrayList)oo.getFirst();
@@ -179,15 +176,14 @@ public class CustomerRegisterActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
-            if(aBoolean){
+            if (aBoolean) {
                 String[] ara = new String[securityQuestionsList.getSecond().size()];
                 securityQuestionsList.getSecond().toArray(ara);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(
                         CustomerRegisterActivity.this, android.R.layout.simple_spinner_item, ara);
                 adapter.setDropDownViewResource(R.layout.my_spinner_dropdown_item);
                 securityQuestion.setAdapter(adapter);
-            }
-            else{
+            } else {
                 Toast.makeText(CustomerRegisterActivity.this,
                         "Failed to load spinner. Recheck your internet connection and relaunch app",
                         Toast.LENGTH_LONG).show();
@@ -195,7 +191,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
         }
     }
 
-    private class AddUserTask extends AsyncTask<Customer, Void, Boolean>{
+    private class AddUserTask extends AsyncTask<Customer, Void, Boolean> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -235,7 +231,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
             super.onPostExecute(aBoolean);
             taskRunning = false;
             progressBar.setVisibility(View.INVISIBLE);
-            if(aBoolean){
+            if (aBoolean) {
                 Toast.makeText(CustomerRegisterActivity.this, "User Successfully added.", Toast.LENGTH_SHORT).show();
 
                 Intent resultantIntent = new Intent();
@@ -243,8 +239,7 @@ public class CustomerRegisterActivity extends AppCompatActivity {
                 resultantIntent.putExtra(LoginAsActivity.USER_PASSWORD_KEY, customer.getPassword());
                 setResult(Activity.RESULT_OK, resultantIntent);
                 finish();
-            }
-            else
+            } else
                 Toast.makeText(CustomerRegisterActivity.this, "User registration failed.", Toast.LENGTH_SHORT).show();
         }
     }

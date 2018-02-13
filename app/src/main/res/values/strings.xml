@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Online Book Store</string>
     <string name="login_as">Sign-in/Sign-up as</string>
-    <string name="customer">Customer</string>
+    <string name="orderedCustomer">Customer</string>
     <string name="publisher">Publisher</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="register">Register</string>

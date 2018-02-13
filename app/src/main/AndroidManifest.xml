@@ -62,6 +62,15 @@
         <activity
             android:name=".CustomerBookDetailsActivity"
             android:label="Book Details" />
+        <activity
+            android:name=".CustomerBookOrderActivity"
+            android:label="Book Order" />
+        <activity
+            android:name=".PublisherNotificationsActivity"
+            android:label="Notification" />
+        <activity
+            android:name=".CustomerNotificationsActivity"
+            android:label="Notification" />
     </application>
 
 </manifest>

@@ -13,7 +13,8 @@ import java.io.ObjectOutputStream;
 
 public class LogInInfoWriter {
     public static final String BOOK_STORE_INFO = ".info";
-    public static void write(AlreadyLoggedIn alreadyLoggedIn){
+
+    public static void write(AlreadyLoggedIn alreadyLoggedIn) {
         File writeDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         //File writeDir = Environment.getDataDirectory();
         boolean f = true;
@@ -26,12 +27,11 @@ public class LogInInfoWriter {
         File logInInfoFile = new File(writeDir, BOOK_STORE_INFO);
         try {
             if (!logInInfoFile.exists())
-                if(!logInInfoFile.createNewFile())
+                if (!logInInfoFile.createNewFile())
                     return;
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(logInInfoFile));
             oos.writeObject(alreadyLoggedIn);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
